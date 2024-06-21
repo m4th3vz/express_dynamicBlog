@@ -20,33 +20,33 @@
         </div>
     </nav>
 
+    <!-- Cards -->
     <div class="container">
-      <h1 class="mt-5"><%= title %></h1>
-      <a href="/postText" class="btn btn-warning m-1 btn-custom">Criar Texto</a>
-      <div class="row">
-        <% posts.forEach(post => { %>
-          <div class="col-lg-4 col-md-6 mb-4">
+        <h1 class="mt-5"><%= title %></h1>
+        <a href="/postText" class="btn btn-warning m-1 btn-custom">Criar Texto</a>
+        <div class="row">
+          <% posts.forEach(post => { %>
+            <div class="col-lg-4 col-md-6 mb-4">
               <div class="card h-100">
-                  <a href="/post/<%= post.id %>">
-                    <% if (post.image1) { %>
-                        <img class="card-img-top" src="<%= post.image1 %>" alt="Imagem do Texto">
-                    <% } else { %>
-                        <img class="card-img-top" src="path/to/placeholder.jpg" alt="Placeholder">
-                    <% } %>
-                  </a>
-                  <div class="card-body">
-                      <h4 class="card-title"><%= post.title %></h4>
-                      <p class="card-text"><%= post.content.substring(0, 100) %>...</p>
-                  </div>
-                  <div class="card-footer">
-                      <a href="/post/<%= post.id %>" class="btn btn-warning m-1 btn-custom">Leia Mais</a>
-                  </div>
+                <a href="/post/<%= post.id %>">
+                  <% if (post.image1) { %>
+                    <img class="card-img-top" src="<%= post.image1 %>" alt="Imagem do Texto">
+                  <% } else { %>
+                    <img class="card-img-top" src="/path/to/placeholder.jpg" alt="Placeholder">
+                  <% } %>
+                </a>
+                <div class="card-body">
+                  <h4 class="card-title"><%= post.title %></h4>
+                  <p class="card-text"><%= post.content.substring(0, 100) %>...</p>
+                </div>
+                <div class="card-footer">
+                  <a href="/post/<%= post.id %>" class="btn btn-warning m-1 btn-custom">Leia Mais</a>
+                </div>
               </div>
-          </div>
-        <% }) %>
+            </div>
+          <% }) %>
+        </div>
       </div>
-  </div>
-  
-  
+
 </body>
 </html>

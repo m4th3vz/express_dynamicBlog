@@ -2,6 +2,19 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../database');
+const multer = require('multer');
+const path = require('path');
+
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, 'public/uploads/');
+  },
+  filename: function(req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+  }
+});
+
+const upload = multer({ storage: storage });
 
 // Rota principal
 router.get('/', (req, res) => {
@@ -24,9 +37,11 @@ router.get('/postText', (req, res) => {
 });
 
 // Rota para processar o formulário de criação de texto
-router.post('/postText', (req, res) => {
+router.post('/postText', upload.single('image1'), (req, res) => {
   const { title, content } = req.body;
-  db.run('INSERT INTO posts (title, content) VALUES (?, ?)', [title, content], function(err) {
+  const image1 = req.file ? `/uploads/${req.file.filename}` : null;
+
+  db.run('INSERT INTO posts (title, content, image1) VALUES (?, ?, ?)', [title, content, image1], function(err) {
     if (err) {
       return console.error(err.message);
     }

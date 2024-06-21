@@ -11,7 +11,7 @@ const port = 3000;
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-// Middleware para servir arquivos estáticos (opcional)
+// Middleware para servir arquivos estáticos (incluindo uploads)
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Middleware para processar dados do formulário
@@ -27,4 +27,3 @@ app.use('/', indexRoutes);
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);
 });
-

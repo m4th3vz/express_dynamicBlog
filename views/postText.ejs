@@ -20,9 +20,7 @@
         </div>
     </nav>
 
-  <div class="container">
-    <h1 class="mt-5"><%= title %></h1>
-    <form action="/postText" method="POST">
+    <form action="/postText" method="POST" enctype="multipart/form-data">
       <div class="form-group">
         <label for="title">Título</label>
         <input type="text" class="form-control" id="title" name="title" required>
@@ -31,8 +29,11 @@
         <label for="content">Conteúdo</label>
         <textarea class="form-control" id="content" name="content" rows="5" required></textarea>
       </div>
-      <button type="submit" class="btn btn-warning m-1 btn-custom">Publicar</button>
+      <div class="form-group">
+        <label for="image1">Imagem</label>
+        <input type="file" class="form-control-file" id="image1" name="image1">
+      </div>
+      <button type="submit" class="btn btn-primary">Postar</button>
     </form>
-  </div>
 </body>
 </html>

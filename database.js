@@ -9,6 +9,24 @@ db.serialize(() => {
     content TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
   )`);
+
+  // Adicionar a coluna image1 se ela não existir
+  db.all("PRAGMA table_info(posts);", (err, columns) => {
+    if (err) {
+      console.error('Erro ao obter informações da tabela:', err.message);
+      return;
+    }
+    const columnExists = columns.some(column => column.name === 'image1');
+    if (!columnExists) {
+      db.run(`ALTER TABLE posts ADD COLUMN image1 TEXT;`, (err) => {
+        if (err) {
+          console.error('Erro ao adicionar a coluna image1:', err.message);
+        } else {
+          console.log('Coluna image1 adicionada com sucesso');
+        }
+      });
+    }
+  });
 });
 
 module.exports = db;
