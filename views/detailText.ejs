@@ -22,6 +22,9 @@
 
   <div class="container">
     <h1 class="mt-5"><%= title %></h1>
+    <% if (post.image1) { %>
+        <img src="<%= post.image1 %>" alt="Imagem do Post">
+      <% } %>
     <p><%= post.content %></p>
     <a href="/listText" class="btn btn-warning m-1 btn-custom">Voltar</a>
   </div>

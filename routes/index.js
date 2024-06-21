@@ -27,7 +27,7 @@ router.get('/listText', (req, res) => {
     if (err) {
       return console.error(err.message);
     }
-    res.render('listText', { title: 'Lista de Textos', posts: rows });
+    res.render('listText', { posts: rows });
   });
 });
 
