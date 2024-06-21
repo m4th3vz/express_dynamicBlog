@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
   res.render('index', { title: 'Home' });
 });
 
-// Rota principal para listar textos
+// Rota para lista de textos
 router.get('/listText', (req, res) => {
   db.all('SELECT * FROM posts ORDER BY created_at DESC', [], (err, rows) => {
     if (err) {
@@ -45,7 +45,7 @@ router.post('/postText', upload.single('image1'), (req, res) => {
     if (err) {
       return console.error(err.message);
     }
-    res.redirect('/');
+    res.redirect('/listText');
   });
 });
 
@@ -57,6 +57,17 @@ router.get('/post/:id', (req, res) => {
       return console.error(err.message);
     }
     res.render('detailText', { title: row.title, post: row });
+  });
+});
+
+// Rota para excluir um post
+router.get('/deletePost/:id', (req, res) => {
+  const { id } = req.params;
+  db.run('DELETE FROM posts WHERE id = ?', [id], function(err) {
+    if (err) {
+      return console.error(err.message);
+    }
+    res.redirect('/listText');
   });
 });
 

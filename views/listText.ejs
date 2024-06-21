@@ -46,6 +46,7 @@
                 </div>
                 <div class="card-footer">
                   <a href="/post/<%= post.id %>" class="btn btn-warning m-1 btn-custom">Leia Mais</a>
+                  <button class="btn btn-danger m-1" onclick="confirmDelete('<%= post.id %>')">Excluir</button>
                 </div>
               </div>
             </div>
@@ -53,5 +54,34 @@
         </div>
       </div>
 
+    <!-- Modal de Confirmação de Exclusão -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deleteModalLabel">Confirmar Exclusão</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Tem certeza que deseja excluir este post?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <a id="confirmDeleteButton" class="btn btn-danger" href="#">Excluir</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Script para o Modal -->
+    <script>
+    function confirmDelete(postId) {
+        var deleteUrl = "/deletePost/" + postId;
+        document.getElementById('confirmDeleteButton').setAttribute('href', deleteUrl);
+        var deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+        deleteModal.show();
+    }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
