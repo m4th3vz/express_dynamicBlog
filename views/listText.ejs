@@ -46,7 +46,8 @@
                 </div>
                 <div class="card-footer">
                   <a href="/post/<%= post.id %>" class="btn btn-warning m-1 btn-custom">Leia Mais</a>
-                  <button class="btn btn-danger m-1" onclick="confirmDelete('<%= post.id %>')">Excluir</button>
+                  <a href="/editText/<%= post.id %>" class="btn btn-warning m-1 btn-custom">Editar</a>
+                  <button class="btn btn-warning m-1 btn-custom" onclick="confirmDelete('<%= post.id %>')">Excluir</button>
                 </div>
               </div>
             </div>

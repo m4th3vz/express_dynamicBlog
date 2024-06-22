@@ -71,4 +71,40 @@ router.get('/deletePost/:id', (req, res) => {
   });
 });
 
+// Rota para exibir o formulário de edição de texto
+router.get('/editText/:id', (req, res) => {
+  const { id } = req.params;
+  db.get('SELECT * FROM posts WHERE id = ?', [id], (err, row) => {
+    if (err) {
+      return console.error(err.message);
+    }
+    res.render('editText', { title: 'Editar Texto', post: row });
+  });
+});
+
+// Rota para processar o formulário de edição de texto
+router.post('/editText/:id', upload.single('image1'), (req, res) => {
+  const { id } = req.params;
+  const { title, content } = req.body;
+  const image1 = req.file ? `/uploads/${req.file.filename}` : null;
+
+  let query = 'UPDATE posts SET title = ?, content = ?';
+  let params = [title, content];
+
+  if (image1) {
+    query += ', image1 = ?';
+    params.push(image1);
+  }
+
+  query += ' WHERE id = ?';
+  params.push(id);
+
+  db.run(query, params, function(err) {
+    if (err) {
+      return console.error(err.message);
+    }
+    res.redirect('/listText');
+  });
+});
+
 module.exports = router;
