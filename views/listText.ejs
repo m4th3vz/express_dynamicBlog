@@ -55,6 +55,54 @@
         </div>
       </div>
 
+      <!-- Estilos para os botões de Paginação -->
+    <style>
+      .pagination .page-link {
+          color: #000000; /* Cor do texto */
+          background-color: #f2e01c; /* Cor de fundo dos botões */
+          border-color: #f2e01c; /* Cor da borda dos botões */
+      }
+  
+      .pagination .page-item.active .page-link {
+          background-color: #faed58; /* Cor de fundo do botão ativo */
+          border-color: #faed58; /* Cor da borda do botão ativo */
+      }
+  
+      .pagination .page-link:hover {
+          background-color: #faed58; /* Cor de fundo dos botões quando hover */
+          border-color: #faed58; /* Cor da borda dos botões quando hover */
+      }
+  </style>
+
+    <!-- Paginação -->
+    <div class="d-flex justify-content-center mt-4">
+      <ul class="pagination">
+        <% if (currentPage > 1) { %>
+          <li class="page-item">
+            <a class="page-link" href="?page=1">Primeira</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="?page=<%= currentPage - 1 %>">Anterior</a>
+          </li>
+        <% } %>
+
+        <% for (let i = 1; i <= totalPages; i++) { %>
+          <li class="page-item <%= i === currentPage ? 'active' : '' %>">
+            <a class="page-link" href="?page=<%= i %>"><%= i %></a>
+          </li>
+        <% } %>
+
+        <% if (currentPage < totalPages) { %>
+          <li class="page-item">
+            <a class="page-link" href="?page=<%= currentPage + 1 %>">Próxima</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="?page=<%= totalPages %>">Última</a>
+          </li>
+        <% } %>
+      </ul>
+    </div>
+
     <!-- Modal de Confirmação de Exclusão -->
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
       <div class="modal-dialog">

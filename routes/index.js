@@ -21,13 +21,29 @@ router.get('/', (req, res) => {
   res.render('index', { title: 'Home' });
 });
 
-// Rota para lista de textos
+// Rota para lista de textos com paginação
 router.get('/listText', (req, res) => {
-  db.all('SELECT * FROM posts ORDER BY created_at DESC', [], (err, rows) => {
+  const page = parseInt(req.query.page) || 1;
+  const limit = 3;
+  const offset = (page - 1) * limit;
+
+  db.all('SELECT * FROM posts ORDER BY created_at DESC LIMIT ? OFFSET ?', [limit, offset], (err, rows) => {
     if (err) {
       return console.error(err.message);
     }
-    res.render('listText', { posts: rows });
+    db.get('SELECT COUNT(*) AS count FROM posts', (err, countResult) => {
+      if (err) {
+        return console.error(err.message);
+      }
+      const totalPosts = countResult.count;
+      const totalPages = Math.ceil(totalPosts / limit);
+
+      res.render('listText', {
+        posts: rows,
+        currentPage: page,
+        totalPages: totalPages
+      });
+    });
   });
 });
 
